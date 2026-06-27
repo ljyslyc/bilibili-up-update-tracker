@@ -1,0 +1,14 @@
+# Runtime/state files
+config.yaml
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+logs/*
+!logs/.gitkeep
+data/*
+!data/.gitkeep
+
+# Secrets/local env
+.env
+*.local

@@ -1,0 +1,51 @@
+# B站 UP 更新追踪配置
+#
+# 用法：
+# 1. 把本文件复制为 config.yaml
+# 2. 在 up_list 中维护要追踪的 UP 主
+# 3. 如需邮件提醒，填写 email 并把 enabled 改成 true
+# 4. 如果只想本地/cron 检查，不想外发邮件，保持 email.enabled=false
+
+up_list:
+  # UID 从空间链接获取，例如 https://space.bilibili.com/68559
+  - uid: 68559
+    name: "22和33"
+  - uid: 403748305
+    name: "BML制作指挥部"
+
+# 检查内容
+track:
+  videos: true
+  dynamics: true
+
+# bilibili-api-python 请求参数
+bilibili:
+  proxy: null          # 例: "http://127.0.0.1:7890"
+  concurrency: 4       # 并发数，别太高，降低风控概率
+  timeout_seconds: 20
+  # 可选：登录 Cookie。遇到 412 风控或需要访问登录可见内容时再填。
+  # 也可用环境变量：BILI_SESSDATA / BILI_BILI_JCT / BILI_BUVID3 / BILI_BUVID4 / BILI_DEDEUSERID
+  credential:
+    sessdata: null
+    bili_jct: null
+    buvid3: null
+    buvid4: null
+    dedeuserid: null
+
+# 状态与输出
+storage:
+  state_file: "data/state.json"
+  latest_report_file: "data/latest-report.json"
+  update_history_file: "data/update-history.jsonl"
+
+# 通知
+email:
+  enabled: false
+  smtp_host: "smtp.qq.com"
+  smtp_port: 587
+  smtp_user: ""
+  smtp_pass: ""       # QQ 邮箱授权码，不是登录密码
+  to: []              # 例: ["recipient@example.com"]
+
+# 首次运行只建立基线，不通知，避免把所有旧视频/动态当更新
+first_run_silent: true
